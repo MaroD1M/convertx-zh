@@ -1,0 +1,749 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "file": "public/script.js",
+      "context": "js:innerHTML:text",
+      "source": "Remove",
+      "occurrence": 1,
+      "target": "移除",
+      "status": "translated"
+    },
+    {
+      "file": "public/script.js",
+      "context": "js:textContent",
+      "source": "Convert",
+      "occurrence": 1,
+      "target": "转换",
+      "status": "translated"
+    },
+    {
+      "file": "public/script.js",
+      "context": "js:textContent",
+      "source": "Uploading...",
+      "occurrence": 1,
+      "target": "上传中...",
+      "status": "translated"
+    },
+    {
+      "file": "src/components/base.tsx",
+      "context": "jsx:a",
+      "source": "ConvertX",
+      "occurrence": 1,
+      "target": "ConvertX",
+      "status": "translated"
+    },
+    {
+      "file": "src/components/base.tsx",
+      "context": "jsx:span",
+      "source": "Powered by",
+      "occurrence": 1,
+      "target": "基于",
+      "status": "translated"
+    },
+    {
+      "file": "src/components/header.tsx",
+      "context": "jsx:a",
+      "source": "Account",
+      "occurrence": 1,
+      "target": "账户",
+      "status": "translated"
+    },
+    {
+      "file": "src/components/header.tsx",
+      "context": "jsx:a",
+      "source": "History",
+      "occurrence": 1,
+      "target": "历史记录",
+      "status": "translated"
+    },
+    {
+      "file": "src/components/header.tsx",
+      "context": "jsx:a",
+      "source": "Login",
+      "occurrence": 1,
+      "target": "登录",
+      "status": "translated"
+    },
+    {
+      "file": "src/components/header.tsx",
+      "context": "jsx:a",
+      "source": "Logout",
+      "occurrence": 1,
+      "target": "退出登录",
+      "status": "translated"
+    },
+    {
+      "file": "src/components/header.tsx",
+      "context": "jsx:a",
+      "source": "Register",
+      "occurrence": 1,
+      "target": "注册",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/chooseConverter.tsx",
+      "context": "attr:aria-label",
+      "source": "Convert to",
+      "occurrence": 1,
+      "target": "转换为",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/chooseConverter.tsx",
+      "context": "jsx:option",
+      "source": "Convert to",
+      "occurrence": 1,
+      "target": "转换为",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/deleteFile.tsx",
+      "context": "prop:message",
+      "source": "File deleted successfully.",
+      "occurrence": 1,
+      "target": "文件删除成功。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/deleteJob.tsx",
+      "context": "prop:message",
+      "source": "Invalid job IDs provided",
+      "occurrence": 1,
+      "target": "提供的任务 ID 无效",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/download.tsx",
+      "context": "prop:message",
+      "source": "Converted file not found.",
+      "occurrence": 1,
+      "target": "未找到转换后的文件。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "context": "attr:title",
+      "source": "ConvertX | Results",
+      "occurrence": 1,
+      "target": "ConvertX | 转换记录",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "context": "attr:title",
+      "source": "Select all",
+      "occurrence": 1,
+      "target": "全选",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "context": "jsx:div",
+      "source": "Detailed File Information:",
+      "occurrence": 1,
+      "target": "文件详细信息：",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "context": "jsx:h1",
+      "source": "Results",
+      "occurrence": 1,
+      "target": "转换记录",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "context": "jsx:span",
+      "source": "Delete Selected (",
+      "occurrence": 1,
+      "target": "删除所选 (",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "context": "jsx:span",
+      "source": "Expand details",
+      "occurrence": 1,
+      "target": "展开详情",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "context": "jsx:th",
+      "source": "Actions",
+      "occurrence": 1,
+      "target": "操作",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "context": "jsx:th",
+      "source": "Files",
+      "occurrence": 1,
+      "target": "文件数",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "context": "jsx:th",
+      "source": "Files Done",
+      "occurrence": 1,
+      "target": "已完成数",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "context": "jsx:th",
+      "source": "Status",
+      "occurrence": 1,
+      "target": "状态",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "context": "jsx:th",
+      "source": "Time",
+      "occurrence": 1,
+      "target": "时间",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/listConverters.tsx",
+      "context": "attr:title",
+      "source": "ConvertX | Converters",
+      "occurrence": 1,
+      "target": "ConvertX | 转换器",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/listConverters.tsx",
+      "context": "jsx:h1",
+      "source": "Converters",
+      "occurrence": 1,
+      "target": "转换器",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/listConverters.tsx",
+      "context": "jsx:td",
+      "source": "Count:",
+      "occurrence": 1,
+      "target": "数量：",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/listConverters.tsx",
+      "context": "jsx:td",
+      "source": "Count:",
+      "occurrence": 2,
+      "target": "数量：",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/listConverters.tsx",
+      "context": "jsx:th",
+      "source": "Converter",
+      "occurrence": 1,
+      "target": "转换器",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/listConverters.tsx",
+      "context": "jsx:th",
+      "source": "From (Count)",
+      "occurrence": 1,
+      "target": "源格式（数量）",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/listConverters.tsx",
+      "context": "jsx:th",
+      "source": "To (Count)",
+      "occurrence": 1,
+      "target": "目标格式（数量）",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/results.tsx",
+      "context": "attr:title",
+      "source": "ConvertX | Result",
+      "occurrence": 1,
+      "target": "ConvertX | 转换结果",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/results.tsx",
+      "context": "jsx:h1",
+      "source": "Results",
+      "occurrence": 1,
+      "target": "转换结果",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/results.tsx",
+      "context": "jsx:p",
+      "source": "All",
+      "occurrence": 1,
+      "target": "全部",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/results.tsx",
+      "context": "jsx:p",
+      "source": "Delete",
+      "occurrence": 1,
+      "target": "删除",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/results.tsx",
+      "context": "jsx:p",
+      "source": "Tar",
+      "occurrence": 1,
+      "target": "Tar 归档",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/results.tsx",
+      "context": "jsx:span",
+      "source": "Unavailable",
+      "occurrence": 1,
+      "target": "不可用",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/results.tsx",
+      "context": "jsx:th",
+      "source": "Actions",
+      "occurrence": 1,
+      "target": "操作",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/results.tsx",
+      "context": "jsx:th",
+      "source": "Converted File Name",
+      "occurrence": 1,
+      "target": "转换后的文件名",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/results.tsx",
+      "context": "jsx:th",
+      "source": "Status",
+      "occurrence": 1,
+      "target": "状态",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/results.tsx",
+      "context": "prop:message",
+      "source": "Job not found.",
+      "occurrence": 1,
+      "target": "未找到任务。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/results.tsx",
+      "context": "prop:message",
+      "source": "Job not found.",
+      "occurrence": 2,
+      "target": "未找到任务。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/root.tsx",
+      "context": "attr:aria-label",
+      "source": "Convert to",
+      "occurrence": 1,
+      "target": "转换为",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/root.tsx",
+      "context": "attr:placeholder",
+      "source": "Search for conversions",
+      "occurrence": 1,
+      "target": "搜索转换格式",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/root.tsx",
+      "context": "attr:value",
+      "source": "Convert",
+      "occurrence": 1,
+      "target": "转换",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/root.tsx",
+      "context": "jsx:b",
+      "source": "Choose a file",
+      "occurrence": 1,
+      "target": "选择文件",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/root.tsx",
+      "context": "jsx:h1",
+      "source": "Convert",
+      "occurrence": 1,
+      "target": "转换",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/root.tsx",
+      "context": "jsx:option",
+      "source": "Convert to",
+      "occurrence": 1,
+      "target": "转换为",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/root.tsx",
+      "context": "jsx:span",
+      "source": "or drag it here",
+      "occurrence": 1,
+      "target": "或拖拽到此处",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/root.tsx",
+      "context": "prop:message",
+      "source": "Cookies should be enabled to use this app.",
+      "occurrence": 1,
+      "target": "使用此应用需要启用 Cookie。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/root.tsx",
+      "context": "prop:message",
+      "source": "No auth cookie, perhaps your browser is blocking cookies.",
+      "occurrence": 1,
+      "target": "没有认证 Cookie，可能是浏览器阻止了 Cookie。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/upload.tsx",
+      "context": "prop:message",
+      "source": "Files uploaded successfully.",
+      "occurrence": 1,
+      "target": "文件上传成功。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:placeholder",
+      "source": "Email",
+      "occurrence": 1,
+      "target": "邮箱",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:placeholder",
+      "source": "Email",
+      "occurrence": 2,
+      "target": "邮箱",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:placeholder",
+      "source": "Email",
+      "occurrence": 3,
+      "target": "邮箱",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:placeholder",
+      "source": "Email",
+      "occurrence": 4,
+      "target": "邮箱",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:placeholder",
+      "source": "Password",
+      "occurrence": 1,
+      "target": "密码",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:placeholder",
+      "source": "Password",
+      "occurrence": 2,
+      "target": "密码",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:placeholder",
+      "source": "Password",
+      "occurrence": 3,
+      "target": "密码",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:placeholder",
+      "source": "Password",
+      "occurrence": 4,
+      "target": "密码",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:placeholder",
+      "source": "Password",
+      "occurrence": 5,
+      "target": "密码",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:title",
+      "source": "ConvertX | Account",
+      "occurrence": 1,
+      "target": "ConvertX | 账户",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:title",
+      "source": "ConvertX | Login",
+      "occurrence": 1,
+      "target": "ConvertX | 登录",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:title",
+      "source": "ConvertX | Register",
+      "occurrence": 1,
+      "target": "ConvertX | 注册",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:title",
+      "source": "ConvertX | Setup",
+      "occurrence": 1,
+      "target": "ConvertX | 设置",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:value",
+      "source": "Create account",
+      "occurrence": 1,
+      "target": "创建账户",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:value",
+      "source": "Login",
+      "occurrence": 1,
+      "target": "登录",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:value",
+      "source": "Register",
+      "occurrence": 1,
+      "target": "注册",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:value",
+      "source": "Update",
+      "occurrence": 1,
+      "target": "更新",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "jsx:a",
+      "source": "GitHub",
+      "occurrence": 1,
+      "target": "GitHub",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "jsx:a",
+      "source": "Register",
+      "occurrence": 1,
+      "target": "注册",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "jsx:footer",
+      "source": "Report any issues on",
+      "occurrence": 1,
+      "target": "问题反馈请访问",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "jsx:h1",
+      "source": "Welcome to ConvertX!",
+      "occurrence": 1,
+      "target": "欢迎使用 ConvertX！",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "jsx:header",
+      "source": "Create your account",
+      "occurrence": 1,
+      "target": "创建您的账户",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "jsx:label",
+      "source": "Current Password",
+      "occurrence": 1,
+      "target": "当前密码",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "jsx:label",
+      "source": "Email",
+      "occurrence": 1,
+      "target": "邮箱",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "jsx:label",
+      "source": "Email",
+      "occurrence": 2,
+      "target": "邮箱",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "jsx:label",
+      "source": "Email",
+      "occurrence": 3,
+      "target": "邮箱",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "jsx:label",
+      "source": "Email",
+      "occurrence": 4,
+      "target": "邮箱",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "jsx:label",
+      "source": "Password",
+      "occurrence": 1,
+      "target": "密码",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "jsx:label",
+      "source": "Password",
+      "occurrence": 2,
+      "target": "密码",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "jsx:label",
+      "source": "Password",
+      "occurrence": 3,
+      "target": "密码",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "jsx:label",
+      "source": "Password (leave blank for unchanged)",
+      "occurrence": 1,
+      "target": "密码（留空表示不更改）",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "prop:message",
+      "source": "Email already in use.",
+      "occurrence": 1,
+      "target": "邮箱已被使用。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "prop:message",
+      "source": "Email already in use.",
+      "occurrence": 2,
+      "target": "邮箱已被使用。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "prop:message",
+      "source": "Failed to create user.",
+      "occurrence": 1,
+      "target": "创建用户失败。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "prop:message",
+      "source": "Invalid credentials.",
+      "occurrence": 1,
+      "target": "凭据无效。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "prop:message",
+      "source": "Invalid credentials.",
+      "occurrence": 2,
+      "target": "凭据无效。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "prop:message",
+      "source": "Invalid credentials.",
+      "occurrence": 3,
+      "target": "凭据无效。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "prop:message",
+      "source": "No auth cookie, perhaps your browser is blocking cookies.",
+      "occurrence": 1,
+      "target": "没有认证 Cookie，可能是浏览器阻止了 Cookie。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "prop:message",
+      "source": "No auth cookie, perhaps your browser is blocking cookies.",
+      "occurrence": 2,
+      "target": "没有认证 Cookie，可能是浏览器阻止了 Cookie。",
+      "status": "translated"
+    }
+  ]
+}

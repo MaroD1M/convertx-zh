@@ -1,0 +1,5 @@
+{
+  "repo": "C4illin/ConvertX",
+  "version": "v0.19.0",
+  "baseImage": "ghcr.io/c4illin/convertx:v0.19.0"
+}

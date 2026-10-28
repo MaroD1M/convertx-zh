@@ -1,0 +1,55 @@
+name: Localization check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci --no-audit --no-fund
+
+      - run: npm test
+
+      - name: Read pinned upstream version
+        id: upstream
+        run: echo "tag=$(jq -r .version zh/upstream.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Download upstream source
+        env:
+          TAG: ${{ steps.upstream.outputs.tag }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/upstream
+          curl -fsSL "https://github.com/C4illin/ConvertX/archive/refs/tags/${TAG}.tar.gz" \
+            | tar -xz --strip-components=1 -C /tmp/upstream
+
+      - name: Check dictionary coverage
+        run: node zh/check.mjs /tmp/upstream --strict
+
+      - name: Apply translations and patches
+        run: |
+          node zh/apply.mjs /tmp/upstream --strict \
+            --source-url "https://github.com/${{ github.repository }}"
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.2
+
+      - name: Typecheck localized source
+        working-directory: /tmp/upstream
+        run: |
+          bun install --frozen-lockfile
+          bun run build

@@ -1,0 +1,126 @@
+name: Sync upstream
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.SYNC_TOKEN || github.token }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci --no-audit --no-fund
+
+      - name: Resolve latest upstream release
+        id: upstream
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          TAG="$(gh release view --repo C4illin/ConvertX --json tagName --jq .tagName)"
+          CURRENT="$(jq -r .version zh/upstream.json)"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "current=${CURRENT}" >> "$GITHUB_OUTPUT"
+          if [ "$TAG" = "$CURRENT" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Download upstream source
+        if: steps.upstream.outputs.changed == 'true'
+        env:
+          TAG: ${{ steps.upstream.outputs.tag }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/upstream
+          curl -fsSL "https://github.com/C4illin/ConvertX/archive/refs/tags/${TAG}.tar.gz" \
+            | tar -xz --strip-components=1 -C /tmp/upstream
+
+      - name: Extract new strings
+        if: steps.upstream.outputs.changed == 'true'
+        env:
+          TAG: ${{ steps.upstream.outputs.tag }}
+        run: |
+          node zh/sync.mjs /tmp/upstream \
+            --version "$TAG" \
+            --base-image "ghcr.io/c4illin/convertx:${TAG}"
+
+      - name: Check localization
+        if: steps.upstream.outputs.changed == 'true'
+        run: |
+          set +e
+          node zh/check.mjs /tmp/upstream --strict > /tmp/check.txt 2>&1
+          cat /tmp/check.txt
+          node zh/apply.mjs /tmp/upstream \
+            --source-url "https://github.com/${{ github.repository }}" > /tmp/apply.txt 2>&1
+          cat /tmp/apply.txt
+
+      - name: Open or update pull request
+        if: steps.upstream.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.SYNC_TOKEN || secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.upstream.outputs.tag }}
+        run: |
+          set -euo pipefail
+          BRANCH="chore/sync-${TAG//\//-}"
+
+          {
+            echo "自动同步上游 \`${TAG}\`。"
+            echo
+            cat zh/sync-report.md
+            echo
+            echo "## 本地化检查"
+            echo
+            echo '```'
+            cat /tmp/check.txt
+            echo '```'
+            echo
+            echo "## 补丁应用检查"
+            echo
+            echo '```'
+            cat /tmp/apply.txt
+            echo '```'
+            echo
+            echo "新增文案需要人工翻译 \`zh/zh-CN.json\` 中 \`status: \"todo\"\` 的条目。"
+            echo "翻译完成后在本分支追加提交即可触发 PR 检查。"
+          } > /tmp/pr-body.md
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH"
+          git add zh/
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "chore: sync upstream ${TAG}"
+          git push --force origin "$BRANCH"
+
+          EXISTING="$(gh pr list --head "$BRANCH" --json number --jq '.[0].number // empty')"
+          if [ -n "$EXISTING" ]; then
+            gh pr comment "$EXISTING" --body-file /tmp/pr-body.md
+          else
+            gh pr create \
+              --base main \
+              --head "$BRANCH" \
+              --title "chore: 同步上游 ${TAG}" \
+              --body-file /tmp/pr-body.md
+          fi

@@ -1,0 +1,17 @@
+{
+  "name": "convertx-zh-overlay",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Chinese localization overlay for C4illin/ConvertX",
+  "scripts": {
+    "extract": "node zh/extract.mjs",
+    "apply": "node zh/apply.mjs",
+    "check": "node zh/check.mjs",
+    "sync": "node zh/sync.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

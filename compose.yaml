@@ -1,0 +1,21 @@
+services:
+  convertx-zh:
+    image: ghcr.io/marod1m/convertx-zh:latest
+    container_name: convertx-zh
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      JWT_SECRET: ${JWT_SECRET:?Please set JWT_SECRET in .env}
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      UMASK: ${UMASK:-002}
+      TZ: ${TZ:-Asia/Shanghai}
+      ACCOUNT_REGISTRATION: ${ACCOUNT_REGISTRATION:-false}
+      HTTP_ALLOWED: ${HTTP_ALLOWED:-false}
+      ALLOW_UNAUTHENTICATED: ${ALLOW_UNAUTHENTICATED:-false}
+      AUTO_DELETE_EVERY_N_HOURS: ${AUTO_DELETE_EVERY_N_HOURS:-24}
+      LANGUAGE: ${LANGUAGE:-zh}
+      # WEBROOT: /convertx

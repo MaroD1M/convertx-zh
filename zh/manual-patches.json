@@ -1,0 +1,59 @@
+{
+  "patches": [
+    {
+      "file": "public/script.js",
+      "find": "`Convert ${",
+      "replace": "`转换 ${"
+    },
+    {
+      "file": "public/script.js",
+      "find": "${target.dataset.target} using ${target.dataset.converter}",
+      "replace": "${target.dataset.target} 使用 ${target.dataset.converter}"
+    },
+    {
+      "file": "src/pages/results.tsx",
+      "find": "<td safe>{file.status}</td>",
+      "replace": "<td safe>{({ Done: \"完成\", \"Failed, check logs\": \"失败，请查看日志\", \"File type not supported\": \"不支持的文件类型\" } as Record<string, string>)[file.status] ?? file.status}</td>"
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "find": "<td safe>{job.status}</td>",
+      "replace": "<td safe>{({ pending: \"处理中\", completed: \"已完成\" } as Record<string, string>)[job.status] ?? job.status}</td>"
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "find": "Are you sure you want to delete ",
+      "replace": "确定要删除 "
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "find": " job(s)? This action cannot be undone.",
+      "replace": " 个任务吗？此操作无法撤销。"
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "find": "Successfully deleted ",
+      "replace": "成功删除 "
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "find": " job(s).",
+      "replace": " 个任务。"
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "find": " Failed to delete ",
+      "replace": " 删除失败 "
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "find": "Failed to delete jobs. Please try again.",
+      "replace": "删除任务失败，请重试。"
+    },
+    {
+      "file": "src/pages/history.tsx",
+      "find": "An error occurred while deleting jobs. Please try again.",
+      "replace": "删除任务时出错，请重试。"
+    }
+  ]
+}
