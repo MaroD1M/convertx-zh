@@ -105,7 +105,8 @@ jobs:
             --exclude dist \
             --exclude .git \
             /tmp/upstream/ source/convertx/
-          cp -a zh source/convertx/convertx-zh-overlay
+          cp -a zh source/convertx/zh
+          cp compose.yaml .env.example source/convertx/
           cp LICENSE NOTICE.md source/convertx/
           cp README.md source/convertx/CONVERTX-ZH-README.md
           tar -czf "convertx-zh-${{ steps.upstream.outputs.tag }}-source.tar.gz" \
