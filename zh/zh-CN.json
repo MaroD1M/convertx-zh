@@ -106,6 +106,14 @@
       "status": "translated"
     },
     {
+      "file": "src/pages/deleteFile.tsx",
+      "context": "prop:message",
+      "source": "File not found.",
+      "occurrence": 1,
+      "target": "",
+      "status": "todo"
+    },
+    {
       "file": "src/pages/deleteJob.tsx",
       "context": "prop:message",
       "source": "Invalid job IDs provided",
@@ -695,7 +703,7 @@
       "source": "Email already in use.",
       "occurrence": 2,
       "target": "邮箱已被使用。",
-      "status": "translated"
+      "status": "removed"
     },
     {
       "file": "src/pages/user.tsx",
@@ -711,7 +719,7 @@
       "source": "Invalid credentials.",
       "occurrence": 1,
       "target": "凭据无效。",
-      "status": "translated"
+      "status": "removed"
     },
     {
       "file": "src/pages/user.tsx",
@@ -719,7 +727,7 @@
       "source": "Invalid credentials.",
       "occurrence": 2,
       "target": "凭据无效。",
-      "status": "translated"
+      "status": "removed"
     },
     {
       "file": "src/pages/user.tsx",
@@ -727,7 +735,7 @@
       "source": "Invalid credentials.",
       "occurrence": 3,
       "target": "凭据无效。",
-      "status": "translated"
+      "status": "removed"
     },
     {
       "file": "src/pages/user.tsx",
