@@ -1,4 +1,14 @@
 #!/usr/bin/env node
+/**
+ * 检查词典是否完整覆盖当前上游源码。
+ *
+ * 用法：
+ *   node zh/check.mjs /path/to/upstream
+ *   node zh/check.mjs /path/to/upstream --strict
+ *
+ * 只读操作，不会修改任何文件。`--strict` 下发现缺失、失效或重复词条
+ * 时以非零状态退出。
+ */
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 

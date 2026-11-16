@@ -6,6 +6,25 @@ import { extractEntries, normalizeText } from "./extract.mjs";
 import { readJson } from "./files.mjs";
 import { keyOf } from "./keys.mjs";
 
+/**
+ * 把译文写回源码。
+ *
+ * 词典只保存“原文 -> 中文”，应用阶段负责：
+ * - 精确定位并替换提取到的文本区间；
+ * - 保留原有引号类型、JSX 空白和缩进；
+ * - 应用少量无法用纯文本替换表达的结构补丁与手工补丁。
+ */
+
+/**
+ * 按原始引号风格生成新的字符串字面量。
+ *
+ * 保留引号类型可以减少无意义 diff，也能避免把合法的单引号字符串
+ * 错误地改成双引号。
+ *
+ * @param {string} value 译文
+ * @param {string} quote 原字符串的引号
+ * @returns {string}
+ */
 function quoteString(value, quote) {
   if (quote === '"') {
     return JSON.stringify(value);
@@ -22,6 +41,18 @@ function quoteString(value, quote) {
   return JSON.stringify(value);
 }
 
+/**
+ * 根据文案类型生成替换文本。
+ *
+ * - 字符串/属性：保留引号；
+ * - JSX/HTML 文本：保留首尾空白，避免破坏排版；
+ * - 其他：直接替换。
+ *
+ * @param {object} entry 提取条目
+ * @param {string} raw 源码中的原始片段
+ * @param {string} target 译文
+ * @returns {string}
+ */
 function replacementFor(entry, raw, target) {
   if (entry.kind === "jsString" || entry.kind === "jsxAttr" || entry.kind === "jsAttr" || entry.kind === "prop") {
     const quote = raw[0];
@@ -37,6 +68,15 @@ function replacementFor(entry, raw, target) {
   return target;
 }
 
+/**
+ * 从后往前应用同一文件的替换，避免前面的替换改变后面的偏移量。
+ *
+ * 如果两个替换区间重叠，说明提取逻辑或手工补丁冲突，直接抛错，
+ * 不允许带着不确定的源码继续构建。
+ *
+ * @param {string} filePath 目标文件
+ * @param {object[]} replacements 替换列表
+ */
 function applyReplacements(filePath, replacements) {
   let text = fs.readFileSync(filePath, "utf8");
   const sorted = [...replacements].sort((a, b) => b.start - a.start);
@@ -55,6 +95,21 @@ function applyReplacements(filePath, replacements) {
   fs.writeFileSync(filePath, text, "utf8");
 }
 
+/**
+ * 应用无法通过词典表达的结构补丁。
+ *
+ * 目前包括：
+ * - 把 `<html lang="en">` 改为目标 locale；
+ * - 在页脚插入“非官方简体中文汉化版 · 源码”链接；
+ * - 把默认语言从 `en` 改为 `zh`。
+ *
+ * 所有补丁都要求上游结构仍然匹配；`--strict` 下缺失会直接失败。
+ *
+ * @param {string} rootDir 上游源码根目录
+ * @param {object} config `zh/config.json`
+ * @param {string} sourceUrl 页脚源码链接
+ * @param {object} report 报告对象
+ */
 function structuralPatches(rootDir, config, sourceUrl, report) {
   const baseFile = path.join(rootDir, "src/components/base.tsx");
   if (fs.existsSync(baseFile)) {
@@ -116,6 +171,15 @@ function structuralPatches(rootDir, config, sourceUrl, report) {
   }
 }
 
+/**
+ * 应用 `zh/manual-patches.json` 中的精确文本补丁。
+ *
+ * 这些补丁用于处理动态拼接、状态映射、历史页内联脚本等无法安全
+ * 自动替换的文案。每个补丁必须能匹配到原文，否则在严格模式下报错。
+ *
+ * @param {string} rootDir 上游源码根目录
+ * @param {object} report 报告对象
+ */
 function manualPatches(rootDir, report) {
   const patchFile = path.join(
     path.dirname(fileURLToPath(import.meta.url)),
@@ -147,13 +211,24 @@ function manualPatches(rootDir, report) {
   report.missingManualPatches = missing;
 }
 
+/**
+ * 把词典和补丁应用到上游源码目录。
+ *
+ * 注意：该函数会直接修改 `rootDir` 中的文件，调用方应传入临时副本，
+ * 不要直接指向人工源码目录。
+ *
+ * @param {string} rootDir 上游源码副本根目录
+ * @param {{entries?: object[]}} dictionary 词典
+ * @param {{config?: object, sourceUrl?: string}} options
+ * @returns {object} 应用报告
+ */
 export function applyDictionary(rootDir, dictionary, options = {}) {
   const { config = {}, sourceUrl = "" } = options;
   const entries = extractEntries(rootDir);
   const translated = new Map();
 
   for (const entry of dictionary.entries ?? []) {
-    if (entry.status === "removed" || entry.status === "stale" || !normalizeText(entry.target ?? "")) {
+    if (entry.status === "removed" || !normalizeText(entry.target ?? "")) {
       continue;
     }
     translated.set(keyOf(entry), entry.target);
@@ -223,6 +298,12 @@ export function applyDictionary(rootDir, dictionary, options = {}) {
   return report;
 }
 
+/**
+ * 格式化应用报告，供 CLI 和 CI 日志使用。
+ *
+ * @param {object} report `applyDictionary()` 的返回值
+ * @returns {string}
+ */
 export function formatReport(report) {
   const lines = [
     `扫描文件: ${report.files}`,

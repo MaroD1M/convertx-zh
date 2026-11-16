@@ -1,3 +1,16 @@
+/**
+ * 极简 CLI 参数解析。
+ *
+ * 支持三种形式：
+ * - `--key=value`
+ * - `--key value`
+ * - `--flag`（值为 true）
+ *
+ * 项目脚本很小，使用 Node 内置能力即可，不引入额外依赖。
+ *
+ * @param {string[]} argv `process.argv.slice(2)`
+ * @returns {Record<string, string | true> & {_: string[]}}
+ */
 export function parseArgs(argv) {
   const args = { _: [] };
 
@@ -28,6 +41,13 @@ export function parseArgs(argv) {
   return args;
 }
 
+/**
+ * 校验必填位置参数。
+ *
+ * @param {string | true | undefined} value 待校验值
+ * @param {string} name 参数说明，用于错误提示
+ * @returns {string}
+ */
 export function requireArg(value, name) {
   if (!value || value === true) {
     console.error(`缺少参数: ${name}`);

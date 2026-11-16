@@ -1,5 +1,8 @@
 name: Sync upstream
 
+# 每天检查上游最新 Release，有新版本时更新词典并创建/更新 PR。
+# 若配置 SYNC_TOKEN，PR 才能自动触发 pull_request 检查。
+
 on:
   schedule:
     - cron: "17 3 * * *"
@@ -63,6 +66,7 @@ jobs:
             --version "$TAG" \
             --base-image "ghcr.io/c4illin/convertx:${TAG}"
 
+      # 这里刻意不因检查失败而退出：即使有新增待翻译文案，也要把报告带进 PR。
       - name: Check localization
         if: steps.upstream.outputs.changed == 'true'
         run: |

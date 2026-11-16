@@ -1,5 +1,8 @@
 name: Publish image
 
+# 发布多架构镜像，并在同一工作流中生成对应源码归档。
+# 只有 zh/** 或本文件变化时才自动触发，避免文档改动导致重复构建。
+
 on:
   push:
     branches: [main]
@@ -33,6 +36,7 @@ jobs:
 
       - run: npm test
 
+      # 所有版本信息都来自 zh/upstream.json，避免工作流和词典漂移。
       - name: Read pinned upstream version
         id: upstream
         run: |
@@ -96,6 +100,7 @@ jobs:
           provenance: true
           sbom: true
 
+      # AGPL 要求提供对应源码：把已应用补丁的上游源码和覆盖层一起归档。
       - name: Package corresponding source
         run: |
           set -euo pipefail
@@ -105,7 +110,7 @@ jobs:
             --exclude dist \
             --exclude .git \
             /tmp/upstream/ source/convertx/
-          cp -a zh source/convertx/zh
+          cp -a zh docs source/convertx/
           cp compose.yaml .env.example source/convertx/
           cp LICENSE NOTICE.md source/convertx/
           cp README.md source/convertx/CONVERTX-ZH-README.md

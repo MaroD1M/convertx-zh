@@ -1,4 +1,13 @@
 #!/usr/bin/env node
+/**
+ * 同步上游版本，并把新文案合并进词典。
+ *
+ * 用法：
+ *   node zh/sync.mjs /path/to/upstream --version v0.19.0
+ *
+ * 会更新 `zh/zh-CN.json`、`zh/upstream.json` 和 `zh/sync-report.md`。
+ * 该脚本不会自动翻译，新增条目会以 `todo` 状态等待人工处理。
+ */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -10,7 +19,7 @@ import { readJson, writeJson } from "./lib/files.mjs";
 
 const args = parseArgs(process.argv.slice(2));
 const root = requireArg(args._[0] ?? args.src ?? process.env.UPSTREAM_DIR, "上游源码目录");
-const version = requireArg(args.version ?? process.env.UPSTREAM_VERSION, "上游版本，例如 v0.19.0");
+const version = requireArg(args.version ?? process.env.UPSTREAM_VERSION, "上游版本，例如 v0.20.0");
 const overlayDir = path.dirname(fileURLToPath(import.meta.url));
 
 const upstreamPath = path.join(overlayDir, "upstream.json");
@@ -19,8 +28,8 @@ const reportPath = path.join(overlayDir, "sync-report.md");
 
 const upstream = readJson(upstreamPath, {
   repo: "C4illin/ConvertX",
-  version: "v0.19.0",
-  baseImage: "ghcr.io/c4illin/convertx:v0.19.0",
+  version: "v0.20.0",
+  baseImage: "ghcr.io/c4illin/convertx:v0.20.0",
 });
 const dictionary = readJson(dictionaryPath, { version: 1, entries: [] });
 const baseImage = args["base-image"] ?? `ghcr.io/c4illin/convertx:${version}`;

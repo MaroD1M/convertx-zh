@@ -106,6 +106,14 @@
       "status": "translated"
     },
     {
+      "file": "src/pages/deleteFile.tsx",
+      "context": "prop:message",
+      "source": "File not found.",
+      "occurrence": 1,
+      "target": "文件未找到。",
+      "status": "translated"
+    },
+    {
       "file": "src/pages/deleteJob.tsx",
       "context": "prop:message",
       "source": "Invalid job IDs provided",
@@ -435,6 +443,38 @@
     },
     {
       "file": "src/pages/user.tsx",
+      "context": "attr:error",
+      "source": "Email already in use.",
+      "occurrence": 1,
+      "target": "邮箱已被使用。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:error",
+      "source": "Invalid credentials.",
+      "occurrence": 1,
+      "target": "凭据无效。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:error",
+      "source": "Invalid credentials.",
+      "occurrence": 2,
+      "target": "凭据无效。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:error",
+      "source": "Invalid credentials.",
+      "occurrence": 3,
+      "target": "凭据无效。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
       "context": "attr:placeholder",
       "source": "Email",
       "occurrence": 1,
@@ -695,7 +735,7 @@
       "source": "Email already in use.",
       "occurrence": 2,
       "target": "邮箱已被使用。",
-      "status": "translated"
+      "status": "removed"
     },
     {
       "file": "src/pages/user.tsx",
@@ -711,7 +751,7 @@
       "source": "Invalid credentials.",
       "occurrence": 1,
       "target": "凭据无效。",
-      "status": "translated"
+      "status": "removed"
     },
     {
       "file": "src/pages/user.tsx",
@@ -719,7 +759,7 @@
       "source": "Invalid credentials.",
       "occurrence": 2,
       "target": "凭据无效。",
-      "status": "translated"
+      "status": "removed"
     },
     {
       "file": "src/pages/user.tsx",
@@ -727,7 +767,7 @@
       "source": "Invalid credentials.",
       "occurrence": 3,
       "target": "凭据无效。",
-      "status": "translated"
+      "status": "removed"
     },
     {
       "file": "src/pages/user.tsx",

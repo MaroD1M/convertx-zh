@@ -1,5 +1,7 @@
 name: Localization check
 
+# 所有 PR 和 main 推送的必过检查：单测、词典覆盖率、补丁应用和类型构建。
+
 on:
   pull_request:
   push:
@@ -27,6 +29,7 @@ jobs:
         id: upstream
         run: echo "tag=$(jq -r .version zh/upstream.json)" >> "$GITHUB_OUTPUT"
 
+      # 使用固定 tag，确保检查结果可复现。
       - name: Download upstream source
         env:
           TAG: ${{ steps.upstream.outputs.tag }}
@@ -46,10 +49,12 @@ jobs:
 
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.4.2
+          bun-version: 1.4.4
 
-      - name: Typecheck localized source
+      - name: Typecheck and build localized source
         working-directory: /tmp/upstream
         run: |
           bun install --frozen-lockfile
           bun run build
+          bun run build:bin
+          test -f dist/convertx

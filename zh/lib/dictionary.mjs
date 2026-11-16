@@ -1,6 +1,24 @@
 import { toDictionaryEntry } from "./extract.mjs";
 import { keyOf } from "./keys.mjs";
 
+/**
+ * 词典同步与校验。
+ *
+ * `zh/zh-CN.json` 是唯一的人工翻译来源。条目状态只有三种：
+ * - `todo`：已从上游提取，但还没有中文译文；
+ * - `translated`：已有中文译文，可被 `apply.mjs` 应用；
+ * - `removed`：上游已删除该文案，保留记录以便上游恢复时自动复活。
+ *
+ * `removed` 条目不会删除，避免上游短暂改动导致人工翻译丢失。
+ */
+
+/**
+ * 稳定排序，保证 `sync.mjs` 生成的词典 diff 可读。
+ *
+ * @param {object} a
+ * @param {object} b
+ * @returns {number}
+ */
 function compareEntries(a, b) {
   if (a.file !== b.file) {
     return a.file.localeCompare(b.file);
@@ -14,6 +32,19 @@ function compareEntries(a, b) {
   return a.occurrence - b.occurrence;
 }
 
+/**
+ * 将最新提取结果合并进现有词典。
+ *
+ * 合并规则：
+ * - 已存在的词条保留人工译文；
+ * - 新词条以 `todo` 加入；
+ * - 上游消失的词条标记为 `removed`，而不是删除；
+ * - 曾经 `removed`、现在又出现的词条恢复为 `todo`。
+ *
+ * @param {object[]} extracted `extractEntries()` 的结果
+ * @param {{entries?: object[]}} dictionary 现有词典
+ * @returns {{dictionary: object, stats: object}}
+ */
 export function syncDictionary(extracted, dictionary) {
   const existing = new Map((dictionary.entries ?? []).map((entry) => [keyOf(entry), entry]));
   const extractedKeys = new Set();
@@ -78,6 +109,20 @@ export function syncDictionary(extracted, dictionary) {
   };
 }
 
+/**
+ * 严格校验词典覆盖率。
+ *
+ * 检查三类问题：
+ * - `missing`：源码里有文案，但词典没有译文；
+ * - `stale`：词典有条目，但源码里已经不存在；
+ * - `duplicates`：同一个 key 出现多次。
+ *
+ * 任意一类非空都会让 CI 失败（`strict` 模式）。
+ *
+ * @param {object[]} extracted
+ * @param {{entries?: object[]}} dictionary
+ * @returns {{detected: number, missing: object[], stale: object[], duplicates: object[], ok: boolean}}
+ */
 export function checkDictionary(extracted, dictionary) {
   const entries = dictionary.entries ?? [];
   const byKey = new Map(entries.map((entry) => [keyOf(entry), entry]));
@@ -89,7 +134,6 @@ export function checkDictionary(extracted, dictionary) {
     if (
       !entry ||
       entry.status === "removed" ||
-      entry.status === "stale" ||
       !(entry.target ?? "").trim()
     ) {
       missing.push(item);
@@ -119,6 +163,12 @@ export function checkDictionary(extracted, dictionary) {
   };
 }
 
+/**
+ * 把校验结果格式化为适合 CI 日志阅读的文本。
+ *
+ * @param {ReturnType<typeof checkDictionary>} result
+ * @returns {string}
+ */
 export function formatCheck(result) {
   const lines = [
     `检测文案: ${result.detected}`,
@@ -157,6 +207,17 @@ export function formatCheck(result) {
   return lines.join("\n");
 }
 
+/**
+ * 生成 `zh/sync-report.md`，供同步 PR 审阅者快速查看新增文案。
+ *
+ * 最多列出 300 条，避免报告过长；完整内容始终以词典为准。
+ *
+ * @param {object} stats `syncDictionary()` 返回的统计
+ * @param {object[]} todoEntries 待翻译条目
+ * @param {string} version 上游版本
+ * @param {string} baseImage 基础镜像
+ * @returns {string}
+ */
 export function formatSyncReport(stats, todoEntries, version, baseImage) {
   const lines = [
     "# 上游同步报告",

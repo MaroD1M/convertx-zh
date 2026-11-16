@@ -8,5 +8,7 @@ export const Root = ({ file }: { file: { status: string } }) => (
     </select>
     <span title="Select all">Select all</span>
     <p>{file.status}</p>
+    <LoginPage error="Invalid credentials." />
+    <LoginPage error={file.status} />
   </main>
 );

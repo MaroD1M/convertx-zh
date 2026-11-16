@@ -16,6 +16,11 @@
 - GitHub Actions 自动检查上游新版本、提取新增文案并创建翻译 PR。
 - 发布多架构镜像，并在 Release 中附带对应源码归档。
 
+## 文档
+
+- [技术交接文档](docs/TECHNICAL.md)：架构、已完成/未完成事项、发布回滚、排障与接手指南。
+- [翻译维护指南](docs/TRANSLATION.md)：词典结构、翻译原则、术语表和手工补丁政策。
+
 ## 快速开始：Docker Compose（推荐）
 
 ### 1. 准备目录和配置
@@ -134,13 +139,13 @@ docker run -d \
 ## 镜像标签
 
 - `latest`：最近一次构建
-- `v0.19.0`：对应上游版本
+- `v0.20.0`：对应上游版本
 - `sha-<commit>`：对应本仓库提交
 
 建议生产环境固定到上游版本标签或 digest：
 
 ```bash
-docker pull ghcr.io/marod1m/convertx-zh:v0.19.0
+docker pull ghcr.io/marod1m/convertx-zh:v0.20.0
 ```
 
 如果 GHCR 包不是公开状态，需要在 GitHub Packages 页面把 `convertx-zh` 的可见性改为 **Public**。
@@ -190,7 +195,7 @@ server {
 
 - 汉化发生在构建阶段，不修改上游仓库，也不依赖上游接受 PR。
 - 运行时镜像以官方 `ghcr.io/c4illin/convertx:<tag>` 为基础，只替换编译产物和 `public/`，避免重复安装 LibreOffice、FFmpeg 等依赖。
-- 同时兼容上游 v0.19 的 `dist/` 运行方式和后续版本的编译二进制方式。
+- 同时兼容上游 v0.19 的 `dist/` 运行方式和 v0.20+ 的编译二进制方式。
 - 页脚会显示“非官方简体中文汉化版 · 源码”，链接到本仓库。
 
 ## 本地开发
@@ -211,10 +216,11 @@ node zh/check.mjs /tmp/upstream --strict
 node zh/apply.mjs /tmp/upstream --strict \
   --source-url "https://github.com/MaroD1M/convertx-zh"
 
-# 类型检查与构建
+# 类型检查与构建（v0.20+ 同时验证编译二进制）
 cd /tmp/upstream
 bun install --frozen-lockfile
 bun run build
+bun run build:bin
 ```
 
 ### 翻译新文案
@@ -245,11 +251,13 @@ bun run build
 ```text
 compose.yaml           推荐部署配置
 .env.example           环境变量模板
+docs/
+  TECHNICAL.md         技术交接、发布回滚、排障与路线图
+  TRANSLATION.md       翻译原则、术语表与补丁政策
 zh/
   upstream.json        固定上游版本与基础镜像
   config.json          locale、默认语言、源码链接
   zh-CN.json           翻译词典
-  glossary.json        术语表
   manual-patches.json  动态文案/状态显示补丁
   lib/                 提取、应用、同步、检查逻辑
   Dockerfile           基于官方镜像的运行时覆盖
