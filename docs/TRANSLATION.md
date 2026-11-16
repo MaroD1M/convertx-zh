@@ -1,6 +1,6 @@
 # 翻译与文案维护指南
 
-> 适用版本：`v0.19.0-zh`；配套文档：[技术交接文档](TECHNICAL.md)
+> 适用版本：`v0.20.0-zh`；配套文档：[技术交接文档](TECHNICAL.md)
 
 本指南面向负责翻译、校对和维护 `zh/zh-CN.json` 的人。项目不使用运行时 i18n 框架，而是在构建阶段把中文写回上游源码，因此每一条翻译都必须能精确定位、可重复应用。
 
@@ -50,7 +50,7 @@
 - `file`：相对上游根目录的路径。
 - `context`：文案所在位置，常见值：
   - `jsx:h1`、`jsx:button`、`jsx:label`：JSX 文本。
-  - `attr:placeholder`、`attr:title`、`attr:aria-label`：JSX 属性。
+  - `attr:placeholder`、`attr:title`、`attr:aria-label`、`attr:error`：JSX 属性。
   - `assignment:textContent`、`assignment:innerHTML`：`public/*.js` 中的赋值。
   - `call:alert`、`call:confirm`、`call:prompt`：浏览器对话框。
   - `html:text`、`html:title`：模板字符串中的 HTML。

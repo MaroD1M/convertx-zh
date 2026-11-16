@@ -2,7 +2,7 @@
 # 复制 .env.example 为 .env，并至少设置 JWT_SECRET。
 services:
   convertx-zh:
-    # 固定版本时请改成 :v0.19.0 或 :sha-<commit>，不要长期依赖 latest。
+    # 固定版本时请改成 :v0.20.0 或 :sha-<commit>，不要长期依赖 latest。
     image: ghcr.io/marod1m/convertx-zh:latest
     container_name: convertx-zh
     restart: unless-stopped

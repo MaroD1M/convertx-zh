@@ -110,8 +110,8 @@
       "context": "prop:message",
       "source": "File not found.",
       "occurrence": 1,
-      "target": "",
-      "status": "todo"
+      "target": "文件未找到。",
+      "status": "translated"
     },
     {
       "file": "src/pages/deleteJob.tsx",
@@ -439,6 +439,38 @@
       "source": "Files uploaded successfully.",
       "occurrence": 1,
       "target": "文件上传成功。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:error",
+      "source": "Email already in use.",
+      "occurrence": 1,
+      "target": "邮箱已被使用。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:error",
+      "source": "Invalid credentials.",
+      "occurrence": 1,
+      "target": "凭据无效。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:error",
+      "source": "Invalid credentials.",
+      "occurrence": 2,
+      "target": "凭据无效。",
+      "status": "translated"
+    },
+    {
+      "file": "src/pages/user.tsx",
+      "context": "attr:error",
+      "source": "Invalid credentials.",
+      "occurrence": 3,
+      "target": "凭据无效。",
       "status": "translated"
     },
     {

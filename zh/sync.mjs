@@ -19,7 +19,7 @@ import { readJson, writeJson } from "./lib/files.mjs";
 
 const args = parseArgs(process.argv.slice(2));
 const root = requireArg(args._[0] ?? args.src ?? process.env.UPSTREAM_DIR, "上游源码目录");
-const version = requireArg(args.version ?? process.env.UPSTREAM_VERSION, "上游版本，例如 v0.19.0");
+const version = requireArg(args.version ?? process.env.UPSTREAM_VERSION, "上游版本，例如 v0.20.0");
 const overlayDir = path.dirname(fileURLToPath(import.meta.url));
 
 const upstreamPath = path.join(overlayDir, "upstream.json");
@@ -28,8 +28,8 @@ const reportPath = path.join(overlayDir, "sync-report.md");
 
 const upstream = readJson(upstreamPath, {
   repo: "C4illin/ConvertX",
-  version: "v0.19.0",
-  baseImage: "ghcr.io/c4illin/convertx:v0.19.0",
+  version: "v0.20.0",
+  baseImage: "ghcr.io/c4illin/convertx:v0.20.0",
 });
 const dictionary = readJson(dictionaryPath, { version: 1, entries: [] });
 const baseImage = args["base-image"] ?? `ghcr.io/c4illin/convertx:${version}`;

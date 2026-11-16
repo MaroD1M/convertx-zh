@@ -16,7 +16,7 @@ import { listSourceFiles, relativeFile } from "./files.mjs";
  * 这样即使同一页面重复出现 “Delete”，也可以分别翻译或只改其中一处。
  */
 
-const UI_ATTRIBUTES = new Set(["placeholder", "title", "aria-label", "alt", "value", "label"]);
+const UI_ATTRIBUTES = new Set(["placeholder", "title", "aria-label", "alt", "value", "label", "error"]);
 const UI_HTML_ATTRIBUTES = new Set(["title", "placeholder", "aria-label", "alt"]);
 const MESSAGE_PROPERTIES = new Set(["message"]);
 const UI_ASSIGNMENT_PROPERTIES = new Set([

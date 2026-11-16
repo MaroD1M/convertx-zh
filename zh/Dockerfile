@@ -1,18 +1,18 @@
 # syntax=docker/dockerfile:1.7
 # 固定上游基础镜像，避免构建结果随 upstream:latest 漂移。
 # 上游版本由 zh/upstream.json 记录；升级时先改版本，再跑 check/apply。
-ARG BASE_IMAGE=ghcr.io/c4illin/convertx:v0.19.0
+ARG BASE_IMAGE=ghcr.io/c4illin/convertx:v0.20.0
 
 # 使用 Bun 构建上游前端。这里只负责产出静态资源和二进制，
 # 最终运行环境仍沿用官方镜像，减少系统依赖差异。
-FROM oven/bun:1.4.2 AS build
+FROM oven/bun:1.4.4 AS build
 WORKDIR /src
 COPY package.json bun.lock* ./
 RUN bun install --frozen-lockfile
 COPY . .
-# v0.19 只有 build；未来上游若提供 build:bin，则同时产出单文件二进制。
+# v0.20 起上游使用 build:bin 产出单文件二进制；旧版本回退到 build。
 RUN if grep -q '"build:bin"' package.json; then \
-      bun run build && bun run build:bin; \
+      bun run build:bin; \
     else \
       bun run build; \
     fi

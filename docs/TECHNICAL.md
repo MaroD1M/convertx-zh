@@ -1,6 +1,6 @@
 # ConvertX 中文版技术交接文档
 
-> 适用版本：`v0.19.0-zh`；最后更新：2026-11-01
+> 适用版本：`v0.20.0-zh`；最后更新：2026-11-16
 > 目标读者：后续维护者、接手发布/排障的人，以及不熟悉本项目但了解基本 Docker/Git 的使用者。
 
 ## 0. 一分钟结论
@@ -9,7 +9,7 @@
 - 汉化在**构建阶段**完成：下载固定版本的上游源码，应用词典和补丁，再用官方镜像作为运行时底座。
 - 不维护完整 fork，不修改上游仓库，不依赖上游合并 PR。
 - 发布物是 `ghcr.io/marod1m/convertx-zh` 多架构镜像，以及 GitHub Release 中的对应源码归档。
-- 当前固定上游版本为 `v0.19.0`，词典 93 条，自动化检查和工作流均已通过。
+- 当前固定上游版本为 `v0.20.0`，词典 94 条有效译文，自动化检查和工作流均已通过。
 - 最需要关注的三件事：上游页面结构变化、手工补丁失效、GHCR/Release 权限与密钥配置。
 
 ## 1. 项目规划
@@ -60,10 +60,10 @@ ConvertX 是一个自托管的文件格式转换工具，功能完整但界面�
 - 上游版本记录在 `zh/upstream.json`，基础镜像也在这里固定。
 - 镜像标签：
   - `latest`：最近一次成功发布，适合快速体验。
-  - `v0.19.0`：对应上游版本，适合一般部署。
+  - `v0.20.0`：对应上游版本，适合一般部署。
   - `sha-<commit>`：对应本仓库提交，适合精确回滚。
-- Release 标签：`v0.19.0-zh`，附件为 `convertx-zh-v0.19.0-source.tar.gz`。
-- 生产部署建议固定 `v0.19.0` 或 `sha-...`，不要长期依赖 `latest`。
+- Release 标签：`v0.20.0-zh`，附件为 `convertx-zh-v0.20.0-source.tar.gz`。
+- 生产部署建议固定 `v0.20.0` 或 `sha-...`，不要长期依赖 `latest`。
 
 ### 1.5 安全与合规
 
@@ -164,7 +164,7 @@ ConvertX 依赖 LibreOffice、FFmpeg、ImageMagick、Calibre 等大量外部工�
 
 ### 3.1 功能与交付
 
-- 简体中文词典：93 条，覆盖当前上游界面。
+- 简体中文词典：94 条有效译文，覆盖当前上游界面。
 - 结构汉化：`<html lang="zh-CN">`、默认 `LANGUAGE=zh`、页脚来源标识。
 - 动态文案：上传进度、文件状态、历史任务状态、删除确认/结果提示。
 - 部署配置：`compose.yaml`、`.env.example`、`docker run` 示例、Nginx 示例。
@@ -184,10 +184,10 @@ ConvertX 依赖 LibreOffice、FFmpeg、ImageMagick、Calibre 等大量外部工�
 ### 3.3 当前交付物
 
 - 仓库：<https://github.com/MaroD1M/convertx-zh>
-- 镜像：`ghcr.io/marod1m/convertx-zh:latest`、`:v0.19.0`、`:sha-8bc72ef`
-- 多架构索引 digest：`sha256:7eb4922565d917f50bd0566134a553be8cf748574682eba5609d4b221ad19059`
-- Release：<https://github.com/MaroD1M/convertx-zh/releases/tag/v0.19.0-zh>
-- 源码归档：`convertx-zh-v0.19.0-source.tar.gz`
+- 镜像：`ghcr.io/marod1m/convertx-zh:latest`、`:v0.20.0`、`:sha-<commit>`
+- 多架构索引 digest：发布后可用 `docker buildx imagetools inspect ghcr.io/marod1m/convertx-zh:v0.20.0` 查看。
+- Release：<https://github.com/MaroD1M/convertx-zh/releases/tag/v0.20.0-zh>
+- 源码归档：`convertx-zh-v0.20.0-source.tar.gz`
 
 ### 3.4 验证记录
 
@@ -198,16 +198,17 @@ npm ci --no-audit --no-fund
 npm test
 node zh/check.mjs /tmp/upstream --strict
 node zh/apply.mjs /tmp/upstream --strict --source-url "https://github.com/MaroD1M/convertx-zh"
-cd /tmp/upstream && bun install --frozen-lockfile && bun run build
+cd /tmp/upstream && bun install --frozen-lockfile && bun run build && bun run build:bin
 ```
 
 结果：
 
 - `npm test`：5/5 通过。
-- 覆盖率检查：93 条，缺失 0、失效 0、重复 0。
-- 应用检查：93 条全部应用，手工补丁全部匹配。
-- 生产模式启动后 `/setup` 返回 `lang="zh-CN"`、设置、欢迎等中文内容。
-- 镜像层检查确认中文页脚、状态映射和脚本已写入。
+- 覆盖率检查：94 条，缺失 0、失效 0、重复 0。
+- 应用检查：94 条全部应用，11 个手工补丁和 2 个结构补丁全部匹配。
+- Bun 1.4.4 下 `build` 与 `build:bin` 均通过，生成 `dist/convertx`。
+- 编译二进制启动后 `/setup` 返回 200、`lang="zh-CN"`，欢迎、账户、邮箱、密码等文案为中文。
+- 登录失败、邮箱冲突和文件不存在提示已覆盖为中文。
 
 ## 4. 未完成方案与已知缺口
 
@@ -234,7 +235,7 @@ cd /tmp/upstream && bun install --frozen-lockfile && bun run build
 
 1. **发布前预检基础镜像**：确认 `ghcr.io/c4illin/convertx:<tag>` 存在且支持 amd64/arm64。
 2. **容器冒烟测试**：在 `pr-check` 或发布前启动构建产物，检查 `/setup` 返回中文和 200。
-3. **固定生产版本**：文档继续强调使用 `v0.19.0` 或 `sha-`，不推荐 `latest`。
+3. **固定生产版本**：文档继续强调使用 `v0.20.0` 或 `sha-`，不推荐 `latest`。
 4. **备份/回滚演练**：验证 `data/` 备份恢复和上一版镜像回滚。
 
 验收标准：任一新版本发布前，四项均有记录或自动化证据。
@@ -321,7 +322,7 @@ cd /tmp/upstream && bun install --frozen-lockfile && bun run build
 ### 7.1 本地环境
 
 - Node.js 22（与 CI 一致）。
-- Bun 1.4.2（仅用于构建上游前端）。
+- Bun 1.4.4（仅用于构建上游前端）。
 - 可选 Docker（本机没有也能通过 GitHub Actions 发布）。
 - `jq`、`curl`、`tar` 用于下载上游。
 
@@ -343,6 +344,7 @@ node zh/apply.mjs /tmp/upstream --strict \
 cd /tmp/upstream
 bun install --frozen-lockfile
 bun run build
+bun run build:bin
 ```
 
 ### 7.3 测试策略

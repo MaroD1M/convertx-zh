@@ -58,6 +58,12 @@ test("extracts UI strings and skips template expressions", () => {
   assert.ok(sources.has("Powered by"));
   assert.ok(sources.has("Remove"));
   assert.ok(sources.has("Uploading..."));
+  assert.ok(sources.has("Invalid credentials."));
+  assert.ok(
+    entries.some(
+      (entry) => entry.context === "attr:error" && entry.source === "Invalid credentials.",
+    ),
+  );
 
   for (const entry of entries) {
     assert.ok(!entry.source.includes("${"), `unexpected template text: ${entry.source}`);
