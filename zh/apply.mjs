@@ -1,4 +1,14 @@
 #!/usr/bin/env node
+/**
+ * 将 `zh/zh-CN.json`、结构补丁和手工补丁应用到上游源码副本。
+ *
+ * 用法：
+ *   node zh/apply.mjs /path/to/upstream
+ *   node zh/apply.mjs /path/to/upstream --strict --source-url https://github.com/OWNER/REPO
+ *
+ * `--strict` 会在存在未翻译文案、失效词条、缺失手工补丁或结构补丁时
+ * 以非零状态退出，CI 和 Docker 构建必须使用严格模式。
+ */
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 

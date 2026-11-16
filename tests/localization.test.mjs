@@ -1,8 +1,15 @@
+/**
+ * 本地化核心逻辑回归测试。
+ *
+ * 夹具 `tests/fixtures/sample/` 模拟上游的 TSX、JSX 属性和 public 脚本；
+ * 测试只操作临时副本，不会修改真实上游源码。
+ */
+
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import test from "node:test";
+import test, { after } from "node:test";
 import { fileURLToPath } from "node:url";
 
 import { applyDictionary } from "../zh/lib/apply.mjs";
@@ -12,9 +19,17 @@ import { keyOf } from "../zh/lib/keys.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const fixture = path.join(here, "fixtures/sample");
+const tempDirs = [];
+
+after(() => {
+  for (const dir of tempDirs) {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
 
 function copyFixture() {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "convertx-zh-test-"));
+  tempDirs.push(dir);
   fs.cpSync(fixture, dir, { recursive: true });
   return dir;
 }

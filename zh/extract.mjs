@@ -1,4 +1,13 @@
 #!/usr/bin/env node
+/**
+ * 只提取上游源码中的界面文案，不读写词典。
+ *
+ * 用法：
+ *   node zh/extract.mjs /path/to/upstream
+ *   node zh/extract.mjs /path/to/upstream --out /tmp/entries.json
+ *
+ * 主要用于调试提取规则和审查覆盖率。
+ */
 import path from "node:path";
 
 import { parseArgs, requireArg } from "./lib/cli.mjs";

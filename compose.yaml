@@ -1,21 +1,31 @@
+# 推荐部署方式：docker compose --env-file .env up -d
+# 复制 .env.example 为 .env，并至少设置 JWT_SECRET。
 services:
   convertx-zh:
+    # 固定版本时请改成 :v0.19.0 或 :sha-<commit>，不要长期依赖 latest。
     image: ghcr.io/marod1m/convertx-zh:latest
     container_name: convertx-zh
     restart: unless-stopped
     ports:
+      # 默认只监听所有网卡的 3000；公网部署建议改为 127.0.0.1:3000:3000 并加反向代理。
       - "3000:3000"
     volumes:
+      # 必须持久化 /app/data，否则账号、任务历史和设置会随容器重建丢失。
       - ./data:/app/data
     environment:
+      # 必填：登录令牌签名密钥。留空会阻止启动，避免误用默认密钥。
       JWT_SECRET: ${JWT_SECRET:?Please set JWT_SECRET in .env}
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
       UMASK: ${UMASK:-002}
       TZ: ${TZ:-Asia/Shanghai}
+      # 默认关闭注册，首次使用请通过 /setup 创建管理员。
       ACCOUNT_REGISTRATION: ${ACCOUNT_REGISTRATION:-false}
+      # 生产环境保持 false；仅在明确知道风险时才允许 HTTP 明文。
       HTTP_ALLOWED: ${HTTP_ALLOWED:-false}
       ALLOW_UNAUTHENTICATED: ${ALLOW_UNAUTHENTICATED:-false}
       AUTO_DELETE_EVERY_N_HOURS: ${AUTO_DELETE_EVERY_N_HOURS:-24}
+      # 默认中文；上游翻译机制仍可用，但本镜像主要验证简体中文。
       LANGUAGE: ${LANGUAGE:-zh}
+      # 子路径部署时取消注释，并确保反向代理去掉前缀。
       # WEBROOT: /convertx

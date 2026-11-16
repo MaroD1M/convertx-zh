@@ -1,4 +1,13 @@
 #!/usr/bin/env node
+/**
+ * 同步上游版本，并把新文案合并进词典。
+ *
+ * 用法：
+ *   node zh/sync.mjs /path/to/upstream --version v0.19.0
+ *
+ * 会更新 `zh/zh-CN.json`、`zh/upstream.json` 和 `zh/sync-report.md`。
+ * 该脚本不会自动翻译，新增条目会以 `todo` 状态等待人工处理。
+ */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";

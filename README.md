@@ -16,6 +16,11 @@
 - GitHub Actions 自动检查上游新版本、提取新增文案并创建翻译 PR。
 - 发布多架构镜像，并在 Release 中附带对应源码归档。
 
+## 文档
+
+- [技术交接文档](docs/TECHNICAL.md)：架构、已完成/未完成事项、发布回滚、排障与接手指南。
+- [翻译维护指南](docs/TRANSLATION.md)：词典结构、翻译原则、术语表和手工补丁政策。
+
 ## 快速开始：Docker Compose（推荐）
 
 ### 1. 准备目录和配置
@@ -245,11 +250,13 @@ bun run build
 ```text
 compose.yaml           推荐部署配置
 .env.example           环境变量模板
+docs/
+  TECHNICAL.md         技术交接、发布回滚、排障与路线图
+  TRANSLATION.md       翻译原则、术语表与补丁政策
 zh/
   upstream.json        固定上游版本与基础镜像
   config.json          locale、默认语言、源码链接
   zh-CN.json           翻译词典
-  glossary.json        术语表
   manual-patches.json  动态文案/状态显示补丁
   lib/                 提取、应用、同步、检查逻辑
   Dockerfile           基于官方镜像的运行时覆盖
